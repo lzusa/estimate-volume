@@ -353,9 +353,9 @@ def main() -> int:
 		for idx, (f, readable, matched_dt_s, temp, fullpath, dt, low_flag, proc) in enumerate(meta_list):
 			if proc:
 				process_entries.append((idx, fullpath, low_flag))
-
+		debug_flag = config.DEBUG
 		with ProcessPoolExecutor(max_workers=workers) as ex:
-			futures = {ex.submit(_worker, fullpath, True, debug_out_dir, low_flag): idx for (idx, fullpath, low_flag) in process_entries}
+			futures = {ex.submit(_worker, fullpath, debug_flag, debug_out_dir, low_flag): idx for (idx, fullpath, low_flag) in process_entries}
 			for fut in as_completed(futures):
 				idx = futures[fut]
 				try:
@@ -562,7 +562,6 @@ def main() -> int:
 						circ_out = os.path.join(os.path.dirname(__file__), f"time_vs_circularity_{config.NAME}.png")
 						plt.savefig(circ_out, dpi=config.PLOT_DPI)
 						print(f"时间-圆度(circularity)图已保存: {circ_out}")
-						plt.show()
 				except Exception as _e:
 					print(f"保存时间-圆度图失败: {_e}")
 				
@@ -951,7 +950,6 @@ def main() -> int:
 					circ_out2 = os.path.join(os.path.dirname(__file__), f"time_vs_circularity_{config.NAME}_{config.VOLUME_METHOD}.png")
 					plt.savefig(circ_out2, dpi=config.PLOT_DPI)
 					print(f"时间-圆度(circularity)图已保存: {circ_out2}")
-					plt.show()
 			except Exception as _e:
 				print(f"保存温度模式下的时间-圆度图失败: {_e}")
 			else:
