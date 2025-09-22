@@ -1,13 +1,21 @@
 ## 文件结构
 
 config.py // 配置文件
+
 get_temp.py // 主程序入口，获取对应图像的匹配温度
+
 estimate_volume.py // 计算体积
+
 ellipse.py // 椭圆拟合方法
+
 legendre.py // 勒让德拟合方法
+
 edge_extend.py // 预处理相关文件
+
 circle_acceptable.py // 预处理相关文件
+
 background_interference.py // 预处理相关文件
+
 specular_gaps.py // 预处理相关文件
 
 ## 目录结构
@@ -56,7 +64,7 @@ specular_gaps.py // 预处理相关文件
 同时在这个路径下应存放待处理的图像，这个路径在config.py中可以通过ROOM_TEMP_DIR进行调整
 
 在Cu30_low_temp文件夹下：
-存放挑选出来的带有缺损的图像，请注意，带有缺损的图像应同时存在与此文件夹与上一层文件夹中
+存放挑选出来的带有缺损的图像，请注意，**带有缺损的图像应同时存在与此文件夹与上一层文件夹中**
 
 在room temperature文件夹下：
 存放常温状态中的图像，这个路径在config.py中可以通过ROOM_TEMP_DIR进行调整
@@ -67,4 +75,20 @@ specular_gaps.py // 预处理相关文件
 ```
 python get_temp.py
 ```
+
+
+## 配置与配置文件
+
+在config.py中，需重点关注以下参数：
+
+ROOM_TEMP_TIME_MODE，若为True，将只处理常温图像，若为False，处理其他图像
+
+LOW_TEMP，定义需要特殊处理无球冠图像的最高温度，低于这个值才会进行无球冠图像处理，若为空，不进行无球冠图像处理
+
+VOLUME_METHOD，定义除了无球冠图像之外的其他图像的处理方法
+
+LOW_TEMP_DEFECT_METHOD，定义无球冠图像的处理方法
+
+
+
 
